@@ -9,6 +9,7 @@ pub mod files;
 
 fn main() {
    
+    files::clear_log();
 
     // clear Screen and initaite input
     println!("{}",termion::clear::All);
@@ -31,10 +32,21 @@ fn main() {
 
     stdout.flush().unwrap();
 
+
+    let mut row = 0;
+
     for c in stdin.keys() {
         match c.unwrap() {
             Key::Char('q') => break,
-            Key::Char(c) => println!("{}", c),
+            Key::Up => {
+                row -= 1;
+                files::log(&row.to_string());
+            },
+            Key::Down => {
+                row += 1;
+                files::log(&row.to_string());
+            },
+            Key::Char(c) => files::log("pressed key"),
             _ => println!("other"),
         }
 
