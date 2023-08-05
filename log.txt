@@ -1,5 +1,3 @@
 -- The Log File --
-pressed key
-1
-2
-1
+lo.txt
+2.txt

@@ -1,6 +1,8 @@
 
 use termion::{self};
 
+use crate::files;
+
 
 
 const VERTICAL_LINE: char = '\u{2502}';
@@ -78,7 +80,7 @@ pub fn frame() {
 
 
 
-pub fn array(array: Vec<String>) {
+pub fn array(array: &Vec<String>) {
 
     
     let (columns, rows) = termion::terminal_size().unwrap();
@@ -100,4 +102,23 @@ pub fn array(array: Vec<String>) {
 
         counter += 1;
     }
+}
+
+pub fn highlight(index: usize, previous: usize , array: Vec<String>) -> Vec<String> {
+    files::log(&array[index]);
+
+    
+    print!("{}{}", termion::cursor::Goto(3, index as u16 + 2), termion::color::Bg(termion::color::LightBlack));
+
+    print!("{}", array[index]);
+
+    print!("{}", termion::color::Bg(termion::color::Reset));
+
+
+
+    print!("{}", termion::cursor::Goto(3, previous as u16 + 2));
+
+    print!("{}", array[previous]);
+
+    return array;
 }

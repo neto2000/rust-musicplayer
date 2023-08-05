@@ -2,6 +2,8 @@ use std::io::Write;
 
 use termion::{self, raw::IntoRawMode, event::Key, input::TermRead};
 
+use crate::display::array;
+
 
 pub mod display;
 pub mod files;
@@ -26,25 +28,36 @@ fn main() {
 
     let test_playlist = vec![String::from("Hello"), String::from("LEvels"), String::from("The Nights")];
 
-    let playlist = files::list_songs("/home/arne-pi//Music/test");
+    let mut playlist = files::list_songs("/home/arne-pi//Music/test");
 
-    display::array(playlist);
+    display::array(&playlist);
 
     stdout.flush().unwrap();
 
 
     let mut row = 0;
+    let mut previous_row = 0;
 
     for c in stdin.keys() {
         match c.unwrap() {
             Key::Char('q') => break,
             Key::Up => {
+               if row <= 0 {
+                    return;
+                }
+
+                previous_row = row;
                 row -= 1;
-                files::log(&row.to_string());
+                playlist = display::highlight(row, previous_row, playlist);
             },
             Key::Down => {
+                if row >= playlist.len() {
+                    return;
+                }
+
+                previous_row = row;
                 row += 1;
-                files::log(&row.to_string());
+                playlist = display::highlight(row, previous_row, playlist);
             },
             Key::Char(c) => files::log("pressed key"),
             _ => println!("other"),
