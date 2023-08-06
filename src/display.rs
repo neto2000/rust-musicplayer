@@ -78,7 +78,16 @@ pub fn frame() {
 
 }
 
+pub fn clear() {
 
+    let (columns, rows) = termion::terminal_size().unwrap();
+
+    for i in 2..rows-1 {
+        print!("{}", termion::cursor::Goto(3, i));
+
+        print!("                        ");
+    }
+}
 
 pub fn array(array: &Vec<String>) {
 

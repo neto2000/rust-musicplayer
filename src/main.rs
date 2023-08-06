@@ -2,11 +2,16 @@ use std::io::Write;
 
 use termion::{self, raw::IntoRawMode, event::Key, input::TermRead};
 
-use crate::display::array;
 
 
 pub mod display;
 pub mod files;
+
+#[derive(PartialEq)]
+enum Selection {
+    Playlists,
+    Songs,
+}
 
 
 fn main() {
@@ -24,15 +29,24 @@ fn main() {
 
 
 
+
+
     display::frame();
 
-    let test_playlist = vec![String::from("Hello"), String::from("LEvels"), String::from("The Nights")];
 
-    let mut playlist = files::list_songs("/home/arne-pi//Music/test");
+    let mut playlists = files::list_songs("/home/arne-pi//Music/test");
 
-    display::array(&playlist);
+    display::array(&playlists);
+
+    playlists = display::highlight(0, 1, playlists);
+
 
     stdout.flush().unwrap();
+
+
+
+
+    let mut selec_state = Selection::Playlists;
 
 
     let mut row = 0;
@@ -41,26 +55,61 @@ fn main() {
     for c in stdin.keys() {
         match c.unwrap() {
             Key::Char('q') => break,
+            Key::Char('p') => {
+                if selec_state == Selection::Playlists {
+
+                    selec_state = Selection::Songs;
+                    
+
+                    let path: String = String::from("/home/arne-pi/Music/test/") + &playlists[row];
+
+                    playlists = files::list_songs(&path);
+
+                    display::clear();
+
+                    display::array(&playlists);
+
+                    row = 0;
+                } 
+                if selec_state == Selection::Songs {
+                    files::log("play song");
+                }
+            },
+            Key::Char('b') => {
+                if selec_state == Selection::Songs {
+                    selec_state = Selection::Playlists;
+                    
+
+                    playlists = files::list_songs("/home/arne-pi/Music/test/");
+
+                    display::clear();
+
+                    display::array(&playlists);
+
+                    row = 0;
+
+                }
+            },
             Key::Up => {
                if row <= 0 {
-                    return;
+                    continue;
                 }
 
                 previous_row = row;
                 row -= 1;
-                playlist = display::highlight(row, previous_row, playlist);
+                playlists = display::highlight(row, previous_row, playlists);
             },
             Key::Down => {
-                if row >= playlist.len() {
-                    return;
+                if row >= playlists.len() - 1 {
+                    continue;
                 }
 
                 previous_row = row;
                 row += 1;
-                playlist = display::highlight(row, previous_row, playlist);
+                playlists = display::highlight(row, previous_row, playlists);
             },
-            Key::Char(c) => files::log("pressed key"),
-            _ => println!("other"),
+            _ => files::log("pressed key"),
+            
         }
 
         stdout.flush().unwrap();

@@ -1,3 +1,15 @@
 -- The Log File --
+2.txt
+dir
+play song
+lied.txt
+play song
+song.txt
+lied.txt
+song.txt
+dir
 lo.txt
+1.txt
+lo.txt
+dir
 2.txt
