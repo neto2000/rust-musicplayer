@@ -116,6 +116,11 @@ pub fn array(array: &Vec<String>) {
 pub fn highlight(index: usize, previous: usize , array: Vec<String>) -> Vec<String> {
     files::log(&array[index]);
 
+
+    print!("{}", termion::cursor::Goto(3, previous as u16 + 2));
+
+    print!("{}", array[previous]);
+
     
     print!("{}{}", termion::cursor::Goto(3, index as u16 + 2), termion::color::Bg(termion::color::LightBlack));
 
@@ -125,9 +130,6 @@ pub fn highlight(index: usize, previous: usize , array: Vec<String>) -> Vec<Stri
 
 
 
-    print!("{}", termion::cursor::Goto(3, previous as u16 + 2));
-
-    print!("{}", array[previous]);
-
+    
     return array;
 }

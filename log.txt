@@ -1,13 +1,19 @@
 -- The Log File --
-2.txt
 dir
-song.txt
-2.txt
+lol
+play song
+play song
+play song
+play song
+play song
+play song
+play song
 dir
-Link.txt
-2.txt
+lol
 dir
-song.txt
-2.txt
+lol
 dir
-Link.txt
+lol
+dir
+lol
+dir

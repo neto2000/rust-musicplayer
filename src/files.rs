@@ -9,7 +9,22 @@ pub fn list_songs(path: &str) -> Vec<String> {
     let mut playlist = Vec::new();
 
     for song in dir {
-        playlist.push(String::from(song.unwrap().path().file_name().unwrap().to_str().unwrap())); 
+        let path = song.unwrap().path();
+        let str_song: &str = path.file_name().unwrap().to_str().unwrap();
+
+        let song_vec: Vec<&str> = str_song.split(".").collect();
+
+        if song_vec.len() == 1 {
+            playlist.push(String::from(song_vec[0])); 
+            continue;
+        }
+
+        if song_vec[1] != "mp3" {
+            continue;
+        }
+
+
+        playlist.push(String::from(song_vec[0])); 
 
     }
 

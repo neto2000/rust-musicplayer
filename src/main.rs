@@ -38,7 +38,7 @@ fn main() {
 
     display::array(&playlists);
 
-    playlists = display::highlight(0, 1, playlists);
+    playlists = display::highlight(0, 0, playlists);
 
 
     stdout.flush().unwrap();
@@ -74,7 +74,7 @@ fn main() {
 
                     display::array(&playlists);
 
-                    playlists = display::highlight(0, 1, playlists);
+                    playlists = display::highlight(0, 0, playlists);
 
                     row = 0;
                 } 
@@ -97,7 +97,7 @@ fn main() {
 
                     display::array(&playlists);
 
-                    playlists = display::highlight(0, 1, playlists);
+                    playlists = display::highlight(0, 0, playlists);
 
                     row = 0;
                 } 
@@ -113,7 +113,7 @@ fn main() {
 
                     display::array(&playlists);
 
-                    playlists = display::highlight(0, 1, playlists);
+                    playlists = display::highlight(0, 0, playlists);
 
                     row = 0;
 

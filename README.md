@@ -10,8 +10,8 @@
 
 # ToDo's
  - [x] implement shuffle playlist
- - [ ] only display .mp3 files
- - [ ] remove extension on display
+ - [x] only display .mp3 files
+ - [x] remove extension on display
  - [ ] create extra frame with play/pause, timeline, etc. (only visual)
  - [ ] config file and access to it
 
