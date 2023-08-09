@@ -113,6 +113,8 @@ fn main() {
 
                     display::array(&playlists);
 
+                    playlists = display::highlight(0, 1, playlists);
+
                     row = 0;
 
                 }
