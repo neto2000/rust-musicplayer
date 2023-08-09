@@ -56,6 +56,11 @@ fn main() {
         match c.unwrap() {
             Key::Char('q') => break,
             Key::Char('p') => {
+                if selec_state == Selection::Songs {
+                    files::log("play song");
+                }
+
+
                 if selec_state == Selection::Playlists {
 
                     selec_state = Selection::Songs;
@@ -69,11 +74,11 @@ fn main() {
 
                     display::array(&playlists);
 
+                    playlists = display::highlight(0, 1, playlists);
+
                     row = 0;
                 } 
-                if selec_state == Selection::Songs {
-                    files::log("play song");
-                }
+                
             },
             Key::Char('b') => {
                 if selec_state == Selection::Songs {
