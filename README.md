@@ -9,7 +9,7 @@
  - ? play youtube songs (maybe impossible) ?
 
 # ToDo's
- - [ ] implement shuffle playlist
+ - [x] implement shuffle playlist
  - [ ] only display .mp3 files
  - [ ] remove extension on display
  - [ ] create extra frame with play/pause, timeline, etc. (only visual)

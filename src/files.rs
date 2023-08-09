@@ -1,5 +1,6 @@
 use std::fs;
 use std::io::Write;
+use rand::Rng;
 
 pub fn list_songs(path: &str) -> Vec<String> {
 
@@ -13,6 +14,22 @@ pub fn list_songs(path: &str) -> Vec<String> {
     }
 
     return playlist;
+}
+
+pub fn shuffle_playlist(mut playlist: Vec<String>) -> Vec<String> {
+    
+    let mut shuffled: Vec<String> = Vec::new();
+
+
+    while playlist.len() > 0 {
+        let index: usize = rand::thread_rng().gen_range(0..playlist.len());
+
+        shuffled.push(String::from(&playlist[index]));
+
+        playlist.remove(index);
+    }   
+
+    return shuffled;
 }
 
 pub fn log(msg: &str) {

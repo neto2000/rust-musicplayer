@@ -1,17 +1,8 @@
 -- The Log File --
 2.txt
 dir
-lo.txt
-1.txt
-lo.txt
+Link.txt
 dir
-pressed key
-song.txt
-play song
-lied.txt
-song.txt
-lied.txt
-song.txt
-lied.txt
-song.txt
-lied.txt
+Green.txt
+dir
+Green.txt

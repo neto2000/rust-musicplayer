@@ -80,6 +80,28 @@ fn main() {
                 } 
                 
             },
+            Key::Char('r') => {
+
+                if selec_state == Selection::Playlists {
+
+                    selec_state = Selection::Songs;
+                    
+
+                    let path: String = String::from("/home/arne-pi/Music/test/") + &playlists[row];
+
+                    playlists = files::list_songs(&path);
+                    
+                    playlists = files::shuffle_playlist(playlists);
+
+                    display::clear();
+
+                    display::array(&playlists);
+
+                    playlists = display::highlight(0, 1, playlists);
+
+                    row = 0;
+                } 
+            },
             Key::Char('b') => {
                 if selec_state == Selection::Songs {
                     selec_state = Selection::Playlists;

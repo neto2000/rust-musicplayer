@@ -9,3 +9,4 @@ edition = "2021"
 
 termsize="0.1.6"
 termion="2.0.1"
+rand="0.8"
