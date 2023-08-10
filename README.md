@@ -14,11 +14,13 @@
  - [x] remove extension on display
  - [ ] create extra frame with play/pause, timeline, etc. (only visual)
  - [ ] config file and access to it
+ - [ ] display song info
 
  - [ ] **Play MP3**
   - [ ] find rust crate (rodio)
   - [ ] play/pause
   - [ ] get timeline
   - [ ] skip songs
+  - [ ] get song info
  
  - [ ] **Audiogram**

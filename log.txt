@@ -1,19 +1,9 @@
 -- The Log File --
+100
 dir
 lol
-play song
-play song
-play song
-play song
-play song
-play song
-play song
-dir
-lol
-dir
-lol
-dir
-lol
-dir
-lol
+Link
+Metallica
+Green
+RHCP
 dir

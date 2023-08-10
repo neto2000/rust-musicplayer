@@ -15,7 +15,20 @@ const CORNER_BOTTOM_RIGHT: char = '\u{256F}';
 
 
 pub fn frame() {
+    
+    let files_ratio: f32 = 0.6;
+
+    let nav_ratio = 4;
+
+
     let (columns, rows) = termion::terminal_size().unwrap();
+
+    frame_files(rows.into(), (columns as f32 * files_ratio) as u16);
+}
+
+fn frame_files(rows: u16, columns: u16) {
+
+    files::log(&columns.to_string());
 
     for i in 0..rows {
         
@@ -30,7 +43,9 @@ pub fn frame() {
                 }
                 else if j == columns - 1 {
                     print!("{}", CORNER_TOP_RIGHT);
-
+                    
+                    print!("{}", termion::cursor::Goto(1, i + 2));
+    
                     continue;
                 }
                 else {
@@ -59,8 +74,16 @@ pub fn frame() {
 
             }
     
-            if j == 0 || j == columns - 1 {
+            if j == 0 {
+
                 print!("{}", VERTICAL_LINE);
+
+                continue;
+            }
+            else if j == columns - 1 {
+                print!("{}", VERTICAL_LINE);
+
+                print!("{}", termion::cursor::Goto(1, i + 2));
 
                 continue;
             }
