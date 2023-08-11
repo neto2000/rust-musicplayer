@@ -1,7 +1,84 @@
-
 use termion::{self};
 
 use crate::files;
+
+
+struct Point {
+    x: usize,
+    y: usize,
+}
+struct Ratio {
+    x: f32,
+    y: f32,
+}
+
+struct Config {
+    display_table: Vec<Vec<Ratio>>,
+
+    files_pos: Point,
+    control_pos: Point,
+
+    term_size: Point,
+}
+
+impl Config {
+    fn new(files_ratio: Ratio, control_ratio: Ratio, files_pos: Point, control_pos: Point) -> Self {
+
+        
+        let (columns, rows) = termion::terminal_size().unwrap();
+
+        let term_size: Point = Point{x: columns as usize, y: rows as usize};
+
+        let mut display_table: Vec<Vec<Ratio>> = Vec::new();
+
+        for i in 0..3 {
+            display_table.push(vec![Ratio{x:0.0,y:0.0},Ratio{x:0.0,y:0.0},Ratio{x:0.0,y:0.0}]);
+        }
+
+        display_table[files_pos.y][files_pos.x] = files_ratio;
+
+        display_table[control_pos.y][control_pos.x] = control_ratio;
+        
+
+
+        Self { display_table: display_table, files_pos: files_pos, control_pos: control_pos, term_size: term_size }
+    }
+    fn get_width(&self, pos: &Point) -> Point {
+        
+        return Point {
+            y: (self.term_size.y as f32 * self.display_table[pos.y][pos.x].y) as usize,
+            x: (self.term_size.x as f32 * self.display_table[pos.y][pos.x].x) as usize
+        }
+    }
+
+    fn get_start_point(&self, pos: &Point) -> Point {
+        
+        let mut origin: Point = Point{x: 0, y: 0};
+
+        let mut counter = pos.y as usize;
+
+        let (columns, rows) = termion::terminal_size().unwrap();
+
+        while counter > 0 {
+            
+            counter -= 1;
+
+            origin.y += (rows as f32 * self.display_table[counter][pos.x].y) as usize;
+
+        }
+
+        counter = pos.x as usize;
+
+        while counter > 0 {
+            
+            counter -= 1;
+
+            origin.x += (columns as f32 * self.display_table[pos.y][counter].x) as usize;
+
+        }
+        return origin
+    }
+}
 
 
 
@@ -15,36 +92,41 @@ const CORNER_BOTTOM_RIGHT: char = '\u{256F}';
 
 
 pub fn frame() {
+    //define later with .config file 
+    let config: Config = Config::new(Ratio{x: 0.6, y: 1.0}, Ratio{x: 0.4, y: 1.0}, Point{x:0,y:0}, Point{x:1,y:0}); 
+        
     
-    let files_ratio: f32 = 0.6;
-
-    let nav_ratio = 4;
 
 
     let (columns, rows) = termion::terminal_size().unwrap();
 
-    frame_files(rows.into(), (columns as f32 * files_ratio) as u16);
+    render_frame(config.get_start_point(&config.files_pos), config.get_width(&config.files_pos));
+
+    render_frame(config.get_start_point(&config.control_pos), config.get_width(&config.control_pos));
 }
 
-fn frame_files(rows: u16, columns: u16) {
-
-    files::log(&columns.to_string());
-
-    for i in 0..rows {
-        
-        for j in 0..columns {
+fn render_frame(origin: Point, dimension: Point) {
     
-            if i == 0 {
+    files::log(&dimension.x.to_string());
 
-                if j == 0 {
+    print!("{}", termion::cursor::Goto(origin.x as u16 + 1, origin.y as u16 + 1));
+
+
+    for i in origin.y..origin.y + dimension.y {
+        
+        for j in origin.x..origin.x + dimension.x {
+    
+            if i == origin.y {
+
+                if j == origin.x {
                     print!("{}", CORNER_TOP_LEFT);
 
                     continue;
                 }
-                else if j == columns - 1 {
+                else if j == origin.x + dimension.x - 1 {
                     print!("{}", CORNER_TOP_RIGHT);
                     
-                    print!("{}", termion::cursor::Goto(1, i + 2));
+                    print!("{}", termion::cursor::Goto(origin.x as u16 + 1, i as u16 + 2));
     
                     continue;
                 }
@@ -55,13 +137,13 @@ fn frame_files(rows: u16, columns: u16) {
                 }
             }
             
-            if i == rows - 1 {
-                if j == 0 {
+            if i == origin.y + dimension.y - 1 {
+                if j == origin.x {
                     print!("{}", CORNER_BOTTOM_LEFT);
 
                     continue;
                 }
-                else if j == columns - 1 {
+                else if j == origin.x + dimension.x - 1 {
                     print!("{}", CORNER_BOTTOM_RIGHT);
 
                     continue;
@@ -74,16 +156,16 @@ fn frame_files(rows: u16, columns: u16) {
 
             }
     
-            if j == 0 {
+            if j == origin.x {
 
                 print!("{}", VERTICAL_LINE);
 
                 continue;
             }
-            else if j == columns - 1 {
+            else if j == origin.x + dimension.x - 1 {
                 print!("{}", VERTICAL_LINE);
 
-                print!("{}", termion::cursor::Goto(1, i + 2));
+                print!("{}", termion::cursor::Goto(origin.x as u16 + 1, i as u16 + 2));
 
                 continue;
             }
