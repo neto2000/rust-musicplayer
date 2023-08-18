@@ -39,7 +39,7 @@ fn main() {
 
     let mut playlists = files::list_songs("/home/neto/music/");
 
-    display::array(&playlists);
+    display::array(&config, display::Point{x:0,y:0}, &playlists);
 
     playlists = display::highlight(0, 0, playlists);
 
@@ -75,7 +75,7 @@ fn main() {
 
                     display::clear(&config, display::Point{x:0,y:0});
 
-                    display::array(&playlists);
+                    display::array(&config, display::Point{x:0,y:0}, &playlists);
 
                     playlists = display::highlight(0, 0, playlists);
 
@@ -98,7 +98,7 @@ fn main() {
 
                     display::clear(&config, display::Point{x:0,y:0});
 
-                    display::array(&playlists);
+                    display::array(&config, display::Point{x:0,y:0}, &playlists);
 
                     playlists = display::highlight(0, 0, playlists);
 
@@ -114,7 +114,7 @@ fn main() {
 
                     display::clear(&config, display::Point{x:0,y:0});
 
-                    display::array(&playlists);
+                    display::array(&config, display::Point{x:0,y:0}, &playlists);
 
                     playlists = display::highlight(0, 0, playlists);
 

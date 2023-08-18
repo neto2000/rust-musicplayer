@@ -199,9 +199,11 @@ pub fn clear(config: &Config, pos: Point) {
     }
 }
 
-pub fn array(array: &Vec<String>) {
+pub fn array(config: &Config, pos: Point, array: &Vec<String>) {
 
     
+    let origin: Point = config.get_start_point(&pos);
+
     let (columns, rows) = termion::terminal_size().unwrap();
 
     let mut counter = 0;
@@ -214,7 +216,7 @@ pub fn array(array: &Vec<String>) {
             break;
         }
 
-        print!("{}", termion::cursor::Goto(3, counter + 2));
+        print!("{}", termion::cursor::Goto(origin.x as u16 + 3, origin.y as u16 + counter + 2));
 
         print!("{}", song);
 

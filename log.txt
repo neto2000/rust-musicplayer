@@ -3,10 +3,7 @@
 209
 test_playlist
 RHCP
-test_playlist
+Green
 RHCP
 test_playlist
-Green
-test_playlist
-Metallica
-test_playlist
+RHCP
