@@ -93,7 +93,7 @@ const CORNER_BOTTOM_RIGHT: char = '\u{256F}';
 
 pub fn frame() {
     //define later with .config file 
-    let config: Config = Config::new(Ratio{x: 0.6, y: 1.0}, Ratio{x: 0.4, y: 1.0}, Point{x:0,y:0}, Point{x:1,y:0}); 
+    let config: Config = Config::new(Ratio{y: 0.6, x: 1.0}, Ratio{y: 0.4, x: 1.0}, Point{x:0,y:0}, Point{x:0,y:1}); 
         
     
 
