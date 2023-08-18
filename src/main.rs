@@ -2,6 +2,10 @@ use std::io::Write;
 
 use termion::{self, raw::IntoRawMode, event::Key, input::TermRead};
 
+use std::fs::File;
+use std::io::BufReader;
+use rodio::{Decoder, OutputStream, Sink};
+use rodio::source::Source;
 
 
 pub mod display;
@@ -18,6 +22,15 @@ enum Selection {
 
 fn main() {
    
+
+
+    let (_stream, stream_handle) = OutputStream::try_default().unwrap();
+    let sink = Sink::try_new(&stream_handle).unwrap();
+
+    
+
+
+
     files::clear_log();
 
     // clear Screen and initaite input
@@ -61,6 +74,12 @@ fn main() {
             Key::Char('p') => {
                 if selec_state == Selection::Songs {
                     files::log("play song");
+
+                    let file = BufReader::new(File::open("/home/neto/music/test_playlist/real_song.mp3").unwrap());
+                    let source = Decoder::new(file).unwrap();
+
+                    sink.append(source);
+
                 }
 
 
@@ -146,6 +165,7 @@ fn main() {
 
         stdout.flush().unwrap();
     }
+
 
     write!(stdout, "{}{}{}", termion::cursor::Show, termion::clear::All, termion::cursor::Goto(1,1)).unwrap();
 
