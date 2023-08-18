@@ -14,6 +14,8 @@ enum Selection {
 }
 
 
+
+
 fn main() {
    
     files::clear_log();
@@ -30,8 +32,9 @@ fn main() {
 
 
 
+    let config = display::Config::new(display::Ratio{y: 0.6, x: 1.0}, display::Ratio{y: 0.4, x: 1.0}, display::Point{x:0,y:0}, display::Point{x:0,y:1}); 
 
-    display::frame();
+    display::frame(&config);
 
 
     let mut playlists = files::list_songs("/home/neto/music/");
@@ -70,7 +73,7 @@ fn main() {
 
                     playlists = files::list_songs(&path);
 
-                    display::clear();
+                    display::clear(&config, display::Point{x:0,y:0});
 
                     display::array(&playlists);
 
@@ -93,7 +96,7 @@ fn main() {
                     
                     playlists = files::shuffle_playlist(playlists);
 
-                    display::clear();
+                    display::clear(&config, display::Point{x:0,y:0});
 
                     display::array(&playlists);
 
@@ -109,7 +112,7 @@ fn main() {
 
                     playlists = files::list_songs("/home/neto/music/");
 
-                    display::clear();
+                    display::clear(&config, display::Point{x:0,y:0});
 
                     display::array(&playlists);
 

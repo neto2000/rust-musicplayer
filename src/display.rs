@@ -3,16 +3,17 @@ use termion::{self};
 use crate::files;
 
 
-struct Point {
-    x: usize,
-    y: usize,
+
+pub struct Point {
+    pub x: usize,
+    pub y: usize,
 }
-struct Ratio {
-    x: f32,
-    y: f32,
+pub struct Ratio {
+    pub x: f32,
+    pub y: f32,
 }
 
-struct Config {
+pub struct Config {
     display_table: Vec<Vec<Ratio>>,
 
     files_pos: Point,
@@ -22,7 +23,7 @@ struct Config {
 }
 
 impl Config {
-    fn new(files_ratio: Ratio, control_ratio: Ratio, files_pos: Point, control_pos: Point) -> Self {
+    pub fn new(files_ratio: Ratio, control_ratio: Ratio, files_pos: Point, control_pos: Point) -> Self {
 
         
         let (columns, rows) = termion::terminal_size().unwrap();
@@ -91,18 +92,19 @@ const CORNER_BOTTOM_LEFT: char = '\u{2570}';
 const CORNER_BOTTOM_RIGHT: char = '\u{256F}';
 
 
-pub fn frame() {
+
+
+pub fn frame(CONFIG: &Config) {
     //define later with .config file 
-    let config: Config = Config::new(Ratio{y: 0.6, x: 1.0}, Ratio{y: 0.4, x: 1.0}, Point{x:0,y:0}, Point{x:0,y:1}); 
         
     
 
 
     let (columns, rows) = termion::terminal_size().unwrap();
 
-    render_frame(config.get_start_point(&config.files_pos), config.get_width(&config.files_pos));
+    render_frame(CONFIG.get_start_point(&CONFIG.files_pos), CONFIG.get_width(&CONFIG.files_pos));
 
-    render_frame(config.get_start_point(&config.control_pos), config.get_width(&config.control_pos));
+    render_frame(CONFIG.get_start_point(&CONFIG.control_pos), CONFIG.get_width(&CONFIG.control_pos));
 }
 
 fn render_frame(origin: Point, dimension: Point) {
@@ -183,14 +185,17 @@ fn render_frame(origin: Point, dimension: Point) {
 
 }
 
-pub fn clear() {
+pub fn clear(config: &Config, pos: Point) {
 
-    let (columns, rows) = termion::terminal_size().unwrap();
+    let origin: Point = config.get_start_point(&pos);
+    let dimension: Point = config.get_width(&pos);
 
-    for i in 2..rows-1 {
-        print!("{}", termion::cursor::Goto(3, i));
-
-        print!("                        ");
+    for i in origin.y + 2..origin.y + dimension.y - 1 {
+        print!("{}", termion::cursor::Goto(3, i as u16));
+        
+        for _j in origin.x + 2..origin.x + dimension.x - 1 {
+            print!(" ");
+        }
     }
 }
 
@@ -238,3 +243,5 @@ pub fn highlight(index: usize, previous: usize , array: Vec<String>) -> Vec<Stri
     
     return array;
 }
+
+
