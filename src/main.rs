@@ -34,7 +34,7 @@ fn main() {
     display::frame();
 
 
-    let mut playlists = files::list_songs("/home/arne-pi//Music/test");
+    let mut playlists = files::list_songs("/home/neto/music/");
 
     display::array(&playlists);
 
@@ -66,7 +66,7 @@ fn main() {
                     selec_state = Selection::Songs;
                     
 
-                    let path: String = String::from("/home/arne-pi/Music/test/") + &playlists[row];
+                    let path: String = String::from("/home/neto/music/") + &playlists[row];
 
                     playlists = files::list_songs(&path);
 
@@ -87,7 +87,7 @@ fn main() {
                     selec_state = Selection::Songs;
                     
 
-                    let path: String = String::from("/home/arne-pi/Music/test/") + &playlists[row];
+                    let path: String = String::from("/home/neto/music/") + &playlists[row];
 
                     playlists = files::list_songs(&path);
                     
@@ -107,7 +107,7 @@ fn main() {
                     selec_state = Selection::Playlists;
                     
 
-                    playlists = files::list_songs("/home/arne-pi/Music/test/");
+                    playlists = files::list_songs("/home/neto/music/");
 
                     display::clear();
 

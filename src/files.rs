@@ -51,7 +51,7 @@ pub fn log(msg: &str) {
     let mut log_file = fs::OpenOptions::new()
         .write(true)
         .append(true)
-        .open("/home/arne-pi/Dokumente/Scripts/Rust/rust-musicplayer/log.txt")
+        .open("/home/neto/documents/scripts/rust/rust-musicplayer/log.txt")
         .unwrap();
 
     
@@ -63,7 +63,7 @@ pub fn clear_log() {
     let mut log_file = fs::OpenOptions::new()
         .write(true)
         .truncate(true)
-        .open("/home/arne-pi/Dokumente/Scripts/Rust/rust-musicplayer/log.txt")
+        .open("/home/neto/documents/scripts/rust/rust-musicplayer/log.txt")
         .unwrap();
 
     writeln!(log_file, "-- The Log File --");

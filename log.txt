@@ -1,5 +1,24 @@
 -- The Log File --
-168
-168
-dir
+209
+209
+test_playlist
+RHCP
+Green
+Linkin
 Metallica
+Linkin
+Green
+RHCP
+test_playlist
+Green
+test_playlist
+RHCP
+test_playlist
+RHCP
+test_playlist
+RHCP
+test_playlist
+Metallica
+test_playlist
+Green
+test_playlist
