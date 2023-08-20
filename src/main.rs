@@ -10,6 +10,7 @@ use rodio::source::Source;
 
 pub mod display;
 pub mod files;
+pub mod sound;
 
 #[derive(PartialEq)]
 enum Selection {
@@ -66,20 +67,21 @@ fn main() {
 
 
     let mut row = 0;
-    let mut previous_row = 0;
+    let mut previous_row;
 
     for c in stdin.keys() {
         match c.unwrap() {
             Key::Char('q') => break,
+            Key::Char(' ') => {
+                files::log("pause");
+
+                sound::pause(&sink);
+            },
             Key::Char('p') => {
                 if selec_state == Selection::Songs {
                     files::log("play song");
 
-                    let file = BufReader::new(File::open("/home/neto/music/test_playlist/real_song.mp3").unwrap());
-                    let source = Decoder::new(file).unwrap();
-
-                    sink.append(source);
-
+                    sound::add_song(&sink, String::from("/home/neto/music/test_playlist/real_song.mp3")) 
                 }
 
 
