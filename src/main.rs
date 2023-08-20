@@ -40,7 +40,7 @@ fn main() {
     let stdin = std::io::stdin();
 
     let mut stdout = std::io::stdout().into_raw_mode().unwrap();
-
+    let mut stdin = termion::async_stdin().keys();
     write!(stdout, "{}{}", termion::cursor::Goto(1,1), termion::cursor::Hide).unwrap();
 
 
@@ -66,107 +66,159 @@ fn main() {
     let mut selec_state = Selection::Playlists;
 
 
+
+    let mut current_playlist: String = String::new();
+
+    let mut current_song = 0;
+
     let mut row = 0;
-    let mut previous_row;
-
-    for c in stdin.keys() {
-        match c.unwrap() {
-            Key::Char('q') => break,
-            Key::Char(' ') => {
-                files::log("pause");
-
-                sound::pause(&sink);
-            },
-            Key::Char('p') => {
-                if selec_state == Selection::Songs {
-                    files::log("play song");
-
-                    sound::add_song(&sink, String::from("/home/neto/music/test_playlist/real_song.mp3")) 
-                }
+    let mut previous_row = 0;
 
 
-                if selec_state == Selection::Playlists {
 
-                    selec_state = Selection::Songs;
+    let mut is_running = true;
+
+
+    while is_running {
+
+        //let stdin = std::io::stdin();
+        let input = stdin.next();
+
+        //for c in stdin.keys() {
+        if let Some(Ok(key)) = input {
+
+            //match c.unwrap() {
+            match key {
+                Key::Char('q') => is_running = false,
+                Key::Char(' ') => {
+                    files::log("pause");
+
+                    sound::pause(&sink);
+                },
+                Key::Char('p') => {
+                    if selec_state == Selection::Songs {
+                        files::log("play song");
+
+                        sound::add_song(&sink, String::from("/home/neto/music/") + &current_playlist + "/" + &playlists[row] + ".mp3"); 
+                    }
+
+
+                    if selec_state == Selection::Playlists {
+
+                        selec_state = Selection::Songs;
+                        
+
+                        current_playlist = playlists[row].to_string();
+
+                        let path: String = String::from("/home/neto/music/") + &playlists[row];
+
+                        playlists = files::list_songs(&path);
+
+                        display::clear(&config, display::Point{x:0,y:0});
+
+                        display::array(&config, display::Point{x:0,y:0}, &playlists);
+
+                        playlists = display::highlight(0, 0, playlists);
+
+                        row = 0;
+                        
+                        let test = String::from("/home/neto/music/") + &current_playlist + "/" + &playlists[current_song] + ".mp3";
+                        files::log(&test);
+
+
+                        sound::add_song(&sink, String::from("/home/neto/music/") + &current_playlist + "/" + &playlists[row] + ".mp3");
+                    } 
                     
+                },
+                Key::Char('r') => {
 
-                    let path: String = String::from("/home/neto/music/") + &playlists[row];
+                    if selec_state == Selection::Playlists {
 
-                    playlists = files::list_songs(&path);
+                        selec_state = Selection::Songs;
+                        
+                        current_playlist = playlists[row].to_string();
 
-                    display::clear(&config, display::Point{x:0,y:0});
+                        let path: String = String::from("/home/neto/music/") + &playlists[row];
 
-                    display::array(&config, display::Point{x:0,y:0}, &playlists);
+                        playlists = files::list_songs(&path);
+                        
+                        playlists = files::shuffle_playlist(playlists);
 
-                    playlists = display::highlight(0, 0, playlists);
+                        display::clear(&config, display::Point{x:0,y:0});
 
-                    row = 0;
-                } 
+                        display::array(&config, display::Point{x:0,y:0}, &playlists);
+
+                        playlists = display::highlight(0, 0, playlists);
+
+                        row = 0;
+
+
+                        sound::add_song(&sink, String::from("/home/neto/music/") + &current_playlist + "/" + &playlists[row] + ".mp3");
+                    } 
+                },
+                Key::Char('b') => {
+                    if selec_state == Selection::Songs {
+                        selec_state = Selection::Playlists;
+                        
+
+                        playlists = files::list_songs("/home/neto/music/");
+
+                        display::clear(&config, display::Point{x:0,y:0});
+
+                        display::array(&config, display::Point{x:0,y:0}, &playlists);
+
+                        playlists = display::highlight(0, 0, playlists);
+
+                        row = 0;
+
+                    }
+                },
+                Key::Up => {
+                   if row <= 0 {
+                        continue;
+                    }
+
+                    previous_row = row;
+                    row -= 1;
+                    playlists = display::highlight(row, previous_row, playlists);
+                },
+                Key::Down => {
+                    if row >= playlists.len() - 1 {
+                        continue;
+                    }
+
+                    previous_row = row;
+                    row += 1;
+                    playlists = display::highlight(row, previous_row, playlists);
+                },
+                _ => files::log("pressed key"),
                 
-            },
-            Key::Char('r') => {
+            }
 
-                if selec_state == Selection::Playlists {
-
-                    selec_state = Selection::Songs;
-                    
-
-                    let path: String = String::from("/home/neto/music/") + &playlists[row];
-
-                    playlists = files::list_songs(&path);
-                    
-                    playlists = files::shuffle_playlist(playlists);
-
-                    display::clear(&config, display::Point{x:0,y:0});
-
-                    display::array(&config, display::Point{x:0,y:0}, &playlists);
-
-                    playlists = display::highlight(0, 0, playlists);
-
-                    row = 0;
-                } 
-            },
-            Key::Char('b') => {
-                if selec_state == Selection::Songs {
-                    selec_state = Selection::Playlists;
-                    
-
-                    playlists = files::list_songs("/home/neto/music/");
-
-                    display::clear(&config, display::Point{x:0,y:0});
-
-                    display::array(&config, display::Point{x:0,y:0}, &playlists);
-
-                    playlists = display::highlight(0, 0, playlists);
-
-                    row = 0;
-
-                }
-            },
-            Key::Up => {
-               if row <= 0 {
-                    continue;
-                }
-
-                previous_row = row;
-                row -= 1;
-                playlists = display::highlight(row, previous_row, playlists);
-            },
-            Key::Down => {
-                if row >= playlists.len() - 1 {
-                    continue;
-                }
-
-                previous_row = row;
-                row += 1;
-                playlists = display::highlight(row, previous_row, playlists);
-            },
-            _ => files::log("pressed key"),
+                            
             
+
+
+        }
+        if selec_state == Selection::Songs { 
+
+            if current_song + 1 < playlists.len() {
+
+                if sound::update(&sink, String::from("/home/neto/music/") + &current_playlist + "/" + &playlists[current_song + 1] + ".mp3") == 1 {
+                    current_song += 1;
+
+                    previous_row = row;
+                    row += 1;
+
+                    playlists = display::highlight(current_song, previous_row, playlists);
+                }
+            }
+
         }
 
         stdout.flush().unwrap();
     }
+
 
 
     write!(stdout, "{}{}{}", termion::cursor::Show, termion::clear::All, termion::cursor::Goto(1,1)).unwrap();

@@ -1,13 +1,6 @@
 -- The Log File --
 209
 209
-test_playlist
-RHCP
-Green
-real_song
-play song
-pause
-pause
-pause
-pause
-pause
+real_songs
+B
+promised_neverland

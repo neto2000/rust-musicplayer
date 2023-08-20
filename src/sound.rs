@@ -20,3 +20,17 @@ pub fn pause(sink: &rodio::Sink) {
         sink.pause();
     }
 }
+
+pub fn update(sink: &rodio::Sink, next_song: String) -> usize {
+    if sink.empty() {
+        let file = BufReader::new(File::open(next_song).unwrap());
+        let source = Decoder::new(file).unwrap();
+
+        sink.append(source);
+
+        return 1;
+
+    } 
+
+    return 0;
+}
