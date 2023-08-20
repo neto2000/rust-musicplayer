@@ -20,7 +20,7 @@
   - [x] find rust crate (rodio)
   - [x] play/pause
   - [ ] get timeline
-  - [ ] skip songs
+  - [x] skip songs
   - [ ] get song info
  
  - [ ] **Audiogram**

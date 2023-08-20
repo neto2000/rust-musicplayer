@@ -74,7 +74,7 @@ fn main() {
     let mut row = 0;
     let mut previous_row = 0;
 
-
+    let mut skip_once = true;
 
     let mut is_running = true;
 
@@ -94,6 +94,15 @@ fn main() {
                     files::log("pause");
 
                     sound::pause(&sink);
+                },
+                Key::Char('s') => {
+                    if skip_once {
+                        sink.stop();
+
+
+                        skip_once = false;
+                    }
+
                 },
                 Key::Char('p') => {
                     if selec_state == Selection::Songs {
@@ -127,6 +136,7 @@ fn main() {
 
 
                         sound::add_song(&sink, String::from("/home/neto/music/") + &current_playlist + "/" + &playlists[row] + ".mp3");
+
                     } 
                     
                 },
@@ -154,6 +164,7 @@ fn main() {
 
 
                         sound::add_song(&sink, String::from("/home/neto/music/") + &current_playlist + "/" + &playlists[row] + ".mp3");
+
                     } 
                 },
                 Key::Char('b') => {
@@ -173,7 +184,7 @@ fn main() {
 
                     }
                 },
-                Key::Up => {
+                Key::Char('A') => {
                    if row <= 0 {
                         continue;
                     }
@@ -182,10 +193,12 @@ fn main() {
                     row -= 1;
                     playlists = display::highlight(row, previous_row, playlists);
                 },
-                Key::Down => {
+                Key::Char('B') => {
                     if row >= playlists.len() - 1 {
                         continue;
                     }
+
+                    files::log("dowdownn");
 
                     previous_row = row;
                     row += 1;
