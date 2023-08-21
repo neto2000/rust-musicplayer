@@ -58,6 +58,8 @@ fn main() {
     playlists = display::highlight(0, 0, playlists);
 
 
+    display::timeline(&config, display::Point { x: 0, y: 1 }, 0.8);
+
     stdout.flush().unwrap();
 
 

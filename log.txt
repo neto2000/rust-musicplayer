@@ -2,31 +2,3 @@
 209
 209
 real_songs
-pressed key
-pressed key
-dowdownn
-test_playlist
-pressed key
-pressed key
-real_songs
-pressed key
-pressed key
-dowdownn
-test_playlist
-pressed key
-pressed key
-real_songs
-pressed key
-pressed key
-dowdownn
-test_playlist
-pressed key
-pressed key
-real_songs
-promised_neverland
-/home/neto/music/real_songs/promised_neverland.mp3
-pause
-pause
-A
-C
-B

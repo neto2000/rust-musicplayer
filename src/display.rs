@@ -82,6 +82,7 @@ impl Config {
 }
 
 
+const CIRCLE: char = '\u{26AB}';
 
 const VERTICAL_LINE: char = '\u{2502}';
 const HORIZONTAL_LINE: char = '\u{2500}';
@@ -244,6 +245,38 @@ pub fn highlight(index: usize, previous: usize , array: Vec<String>) -> Vec<Stri
 
     
     return array;
+}
+
+pub fn timeline(config: &Config, pos: Point, percantage: f32) {
+    let origin: Point = config.get_start_point(&pos);
+    let dimension: Point = config.get_width(&pos);
+
+
+    let row = dimension.y as f32 * 0.75 + origin.y as f32;
+
+    let row = row as u16;
+
+    let line_position = (dimension.x - 9) as f32 * percantage;
+
+    
+    print!("{}", termion::cursor::Goto(origin.x as u16 + 5, row));
+
+    for i in 0..dimension.x - 9 {
+
+        if i == line_position as usize {
+    
+            print!("{}", CIRCLE);
+        }
+        else if i < line_position as usize {
+            
+            print!("{}", HORIZONTAL_LINE);
+        }
+        else {
+            print!(" ");
+        }
+    }
+
+
 }
 
 
