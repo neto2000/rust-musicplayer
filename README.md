@@ -19,7 +19,7 @@
  - [ ] **Play MP3**
   - [x] find rust crate (rodio)
   - [x] play/pause
-  - [ ] get timeline
+  - [x] get timeline
   - [x] skip songs
   - [ ] get song info
  
