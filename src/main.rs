@@ -7,6 +7,8 @@ use std::io::BufReader;
 use rodio::{Decoder, OutputStream, Sink};
 use rodio::source::Source;
 
+use std::time::SystemTime;
+
 
 pub mod display;
 pub mod files;
@@ -81,8 +83,8 @@ fn main() {
     let mut is_running = true;
 
 
-    let mut song_starte = 0;
-    let mut song_length;
+    let mut song_start = SystemTime::now();
+    let mut song_length = 0;
 
 
     while is_running {
@@ -140,9 +142,15 @@ fn main() {
                         let test = String::from("/home/neto/music/") + &current_playlist + "/" + &playlists[current_song] + ".mp3";
                         files::log(&test);
 
+                        
 
-                        sound::add_song(&sink, String::from("/home/neto/music/") + &current_playlist + "/" + &playlists[row] + ".mp3");
+                        let song = String::from("/home/neto/music/") + &current_playlist + "/" + &playlists[row] + ".mp3";
 
+                        sound::add_song(&sink, song.clone());
+                        
+                        song_length = files::duration(&song);
+
+                        song_start = SystemTime::now();
                     } 
                     
                 },
@@ -169,7 +177,13 @@ fn main() {
                         row = 0;
 
 
-                        sound::add_song(&sink, String::from("/home/neto/music/") + &current_playlist + "/" + &playlists[row] + ".mp3");
+                        let song = String::from("/home/neto/music/") + &current_playlist + "/" + &playlists[row] + ".mp3";
+
+                        sound::add_song(&sink, song.clone());
+                        
+                        song_length = files::duration(&song);
+
+                        song_start = SystemTime::now();
 
                     } 
                 },
@@ -231,8 +245,7 @@ fn main() {
                    
                     song_length = files::duration(&path);
 
-                    println!("{}", song_length);
-                    
+                    song_start = SystemTime::now(); 
 
 
                     previous_row = row;
@@ -240,6 +253,12 @@ fn main() {
 
                     playlists = display::highlight(current_song, previous_row, playlists);
                 }
+
+            }
+
+            if song_start.elapsed().expect("err").as_secs() < song_length {
+                
+                display::timeline(&config, display::Point { x: 0, y: 1 }, song_start.elapsed().expect("error").as_secs() as f32 / song_length as f32)
             }
 
         }
