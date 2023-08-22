@@ -2,6 +2,9 @@ use std::fs;
 use std::io::Write;
 use rand::Rng;
 
+use lofty::{Accessor, AudioFile, Probe, TaggedFileExt};
+use std::path::Path;
+
 pub fn list_songs(path: &str) -> Vec<String> {
 
     let dir = fs::read_dir(path).unwrap();
@@ -68,3 +71,15 @@ pub fn clear_log() {
 
     writeln!(log_file, "-- The Log File --");
 }
+
+
+
+pub fn duration(path: &str) -> u64 {
+
+    let tag = Probe::open(Path::new(path)).expect("error").read().expect("error");
+
+    return tag.properties().duration().as_secs();
+    
+}
+
+

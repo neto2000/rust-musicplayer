@@ -81,6 +81,10 @@ fn main() {
     let mut is_running = true;
 
 
+    let mut song_starte = 0;
+    let mut song_length;
+
+
     while is_running {
 
         //let stdin = std::io::stdin();
@@ -219,8 +223,17 @@ fn main() {
 
             if current_song + 1 < playlists.len() {
 
-                if sound::update(&sink, String::from("/home/neto/music/") + &current_playlist + "/" + &playlists[current_song + 1] + ".mp3") == 1 {
+                let path = String::from("/home/neto/music/") + &current_playlist + "/" + &playlists[current_song + 1] + ".mp3";
+
+                if sound::update(&sink, path.clone()) == 1 {
                     current_song += 1;
+
+                   
+                    song_length = files::duration(&path);
+
+                    println!("{}", song_length);
+                    
+
 
                     previous_row = row;
                     row += 1;
