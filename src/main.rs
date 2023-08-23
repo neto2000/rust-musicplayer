@@ -50,17 +50,17 @@ fn main() {
 
     let config = display::Config::new(display::Ratio{y: 0.6, x: 1.0}, display::Ratio{y: 0.4, x: 1.0}, display::Point{x:0,y:0}, display::Point{x:0,y:1}); 
 
-    display::frame(&config);
+    config.frame();
 
 
     let mut playlists = files::list_songs("/home/neto/music/");
 
-    display::array(&config, display::Point{x:0,y:0}, &playlists);
+    config.array(&playlists);
 
-    playlists = display::highlight(0, 0, playlists);
+    playlists = config.highlight(0, 0, playlists);
 
 
-    display::timeline(&config, display::Point { x: 0, y: 1 }, 0.8);
+    config.timeline(0.8);
 
     stdout.flush().unwrap();
 
@@ -131,11 +131,11 @@ fn main() {
 
                         playlists = files::list_songs(&path);
 
-                        display::clear(&config, display::Point{x:0,y:0});
+                        config.clear(display::Windows::Files);
 
-                        display::array(&config, display::Point{x:0,y:0}, &playlists);
+                        config.array(&playlists);
 
-                        playlists = display::highlight(0, 0, playlists);
+                        playlists = config.highlight(0, 0, playlists);
 
                         row = 0;
                         
@@ -168,11 +168,12 @@ fn main() {
                         
                         playlists = files::shuffle_playlist(playlists);
 
-                        display::clear(&config, display::Point{x:0,y:0});
+                        
+                        config.clear(display::Windows::Files);
 
-                        display::array(&config, display::Point{x:0,y:0}, &playlists);
+                        config.array(&playlists);
 
-                        playlists = display::highlight(0, 0, playlists);
+                        playlists = config.highlight(0, 0, playlists);
 
                         row = 0;
 
@@ -194,11 +195,11 @@ fn main() {
 
                         playlists = files::list_songs("/home/neto/music/");
 
-                        display::clear(&config, display::Point{x:0,y:0});
+                        config.clear(display::Windows::Files);
 
-                        display::array(&config, display::Point{x:0,y:0}, &playlists);
+                        config.array(&playlists);
 
-                        playlists = display::highlight(0, 0, playlists);
+                        playlists = config.highlight(0, 0, playlists);
 
                         row = 0;
 
@@ -211,7 +212,7 @@ fn main() {
 
                     previous_row = row;
                     row -= 1;
-                    playlists = display::highlight(row, previous_row, playlists);
+                    playlists = config.highlight(row, previous_row, playlists);
                 },
                 Key::Char('B') => {
                     if row >= playlists.len() - 1 {
@@ -222,7 +223,7 @@ fn main() {
 
                     previous_row = row;
                     row += 1;
-                    playlists = display::highlight(row, previous_row, playlists);
+                    playlists = config.highlight(row, previous_row, playlists);
                 },
                 _ => files::log("pressed key"),
                 
@@ -251,14 +252,14 @@ fn main() {
                     previous_row = row;
                     row += 1;
 
-                    playlists = display::highlight(current_song, previous_row, playlists);
+                    playlists = config.highlight(current_song, previous_row, playlists);
                 }
 
             }
 
             if song_start.elapsed().expect("err").as_secs() < song_length {
                 
-                display::timeline(&config, display::Point { x: 0, y: 1 }, song_start.elapsed().expect("error").as_secs() as f32 / song_length as f32)
+                config.timeline(song_start.elapsed().expect("error").as_secs() as f32 / song_length as f32);
             }
 
         }
