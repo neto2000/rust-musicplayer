@@ -82,9 +82,13 @@ fn main() {
 
     let mut is_running = true;
 
+    let mut is_paused = false;
+
 
     let mut song_start = SystemTime::now();
     let mut song_length = 0;
+
+    let mut song_secs_played = 0;
 
 
     while is_running {
@@ -101,7 +105,15 @@ fn main() {
                 Key::Char(' ') => {
                     files::log("pause");
 
-                    sound::pause(&sink);
+                    is_paused = sound::pause(&sink);
+
+                    if is_paused {
+                        song_secs_played += song_start.elapsed().expect("err").as_secs();
+                    }
+                    else {
+
+                        song_start = SystemTime::now();
+                    }
                 },
                 Key::Char('s') => {
                     if skip_once {
@@ -138,6 +150,8 @@ fn main() {
                         playlists = config.highlight(0, 0, playlists);
 
                         row = 0;
+
+                        song_secs_played = 0;
                         
                         let test = String::from("/home/neto/music/") + &current_playlist + "/" + &playlists[current_song] + ".mp3";
                         files::log(&test);
@@ -176,6 +190,9 @@ fn main() {
                         playlists = config.highlight(0, 0, playlists);
 
                         row = 0;
+
+
+                        song_secs_played = 0;
 
 
                         let song = String::from("/home/neto/music/") + &current_playlist + "/" + &playlists[row] + ".mp3";
@@ -245,6 +262,7 @@ fn main() {
                 if sound::update(&sink, path.clone()) == 1 {
                     current_song += 1;
 
+                    song_secs_played = 0;
                    
                     song_length = files::duration(&path);
 
@@ -259,9 +277,11 @@ fn main() {
 
             }
 
-            if song_start.elapsed().expect("err").as_secs() < song_length {
+            let time = song_start.elapsed().expect("err").as_secs() + song_secs_played;
+
+            if time < song_length && !is_paused{
                 
-                config.timeline(song_start.elapsed().expect("error").as_secs() as f32 / song_length as f32);
+                config.timeline(time as f32 / song_length as f32);
             }
 
         }

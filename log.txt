@@ -4,20 +4,9 @@
 real_songs
 promised_neverland
 /home/neto/music/real_songs/promised_neverland.mp3
-A
-C
-B
-pressed key
-pressed key
-pressed key
-pressed key
-pressed key
-pressed key
-up
-C
-up
-A
-up
-promised_neverland
-play song
-pressed key
+pause
+pause
+pause
+pause
+pause
+pause

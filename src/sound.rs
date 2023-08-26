@@ -12,12 +12,16 @@ pub fn add_song(sink: &rodio::Sink, path: String) {
 
 }
 
-pub fn pause(sink: &rodio::Sink) {
+pub fn pause(sink: &rodio::Sink) -> bool {
     if sink.is_paused() {
         sink.play();
+
+        return false;
     }
     else {
         sink.pause();
+
+        return true;
     }
 }
 
