@@ -188,6 +188,27 @@ fn main() {
 
                     } 
                 },
+                Key::Char('k') => {
+                    files::log("up");
+                    if row <= 0 {
+                        continue;
+                    }
+
+                    previous_row = row;
+                    row -= 1;
+                    playlists = config.highlight(row, previous_row, playlists);
+                },
+                Key::Char('j') => {
+                    files::log("dowdownn");
+                    if row >= playlists.len() - 1 {
+                        continue;
+                    }
+
+
+                    previous_row = row;
+                    row += 1;
+                    playlists = config.highlight(row, previous_row, playlists);
+                },
                 Key::Char('b') => {
                     if selec_state == Selection::Songs {
                         selec_state = Selection::Playlists;
@@ -205,27 +226,8 @@ fn main() {
 
                     }
                 },
-                Key::Char('A') => {
-                   if row <= 0 {
-                        continue;
-                    }
-
-                    previous_row = row;
-                    row -= 1;
-                    playlists = config.highlight(row, previous_row, playlists);
-                },
-                Key::Char('B') => {
-                    if row >= playlists.len() - 1 {
-                        continue;
-                    }
-
-                    files::log("dowdownn");
-
-                    previous_row = row;
-                    row += 1;
-                    playlists = config.highlight(row, previous_row, playlists);
-                },
-                _ => files::log("pressed key"),
+                
+                _ => {files::log("pressed key");},
                 
             }
 
