@@ -2,11 +2,3 @@
 209
 209
 real_songs
-promised_neverland
-/home/neto/music/real_songs/promised_neverland.mp3
-pause
-pause
-pause
-pause
-pause
-pause

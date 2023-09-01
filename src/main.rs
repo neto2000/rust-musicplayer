@@ -61,6 +61,7 @@ fn main() {
 
 
     config.timeline(0.8);
+    config.play_pause(true);
 
     stdout.flush().unwrap();
 

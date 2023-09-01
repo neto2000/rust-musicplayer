@@ -303,7 +303,12 @@ impl Config {
 
         let row = dimension.y as f32 * 0.75 + origin.y as f32;
 
-        let row = row as u16;
+        let mut row = row as u16;
+
+        if row > (dimension.y - 4 + origin.y) as u16 {
+            row = (dimension.y - 4 + origin.y) as u16;
+        }
+
 
         let line_position = (dimension.x - 9) as f32 * percantage;
 
@@ -329,12 +334,31 @@ impl Config {
     }
 
     pub fn play_pause(&self, pause: bool) {
+        
+        let origin: Point = self.control_start;
+        let dimension: Point = self.control_width;
+
+
+        let row = dimension.y as f32 * 0.75 + origin.y as f32 + 2.0;
+
+        let mut row = row as u16;
+
+        if row > (dimension.y - 2 + origin.y) as u16 {
+            row = (dimension.y - 2 + origin.y) as u16;
+        }
+
+
+        let mid = (dimension.x as f32 * 0.5 + origin.x as f32) as u16;
+
+
+        print!("{}", termion::cursor::Goto(mid, row));
 
         if pause {
-
+            print!("{}", PAUSE);
         }
         else {
 
+            print!("{}", PLAY);
         }
     }
 
