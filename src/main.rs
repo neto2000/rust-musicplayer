@@ -110,10 +110,14 @@ fn main() {
 
                     if is_paused {
                         song_secs_played += song_start.elapsed().expect("err").as_secs();
+
+                        config.play_pause(false);
                     }
                     else {
 
                         song_start = SystemTime::now();
+
+                        config.play_pause(true);
                     }
                 },
                 Key::Char('s') => {

@@ -127,8 +127,8 @@ const CORNER_BOTTOM_LEFT: char = '\u{2570}';
 const CORNER_BOTTOM_RIGHT: char = '\u{256F}';
 
 
-const PLAY: char = '\u{23F5}';
-const PAUSE: char = '\u{23F8}';
+const PLAY: char = '\u{25B6}';
+const PAUSE: char = '\u{2016}';
 
 
 
