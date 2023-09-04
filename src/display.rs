@@ -362,4 +362,38 @@ impl Config {
         }
     }
 
+    pub fn title(&self, title: &str) {
+        let origin: Point = self.control_start;
+        let dimension: Point = self.control_width;
+
+
+        let row = dimension.y as f32 * 0.75 + origin.y as f32 - 2.0;
+
+        let mut row = row as u16;
+
+        //if row > (dimension.y - 2 + origin.y) as u16 {
+        //    row = (dimension.y - 2 + origin.y) as u16;
+        //}
+        //
+
+        for i in origin.x + 2..origin.x + dimension.x {
+            
+            print!("{}", termion::cursor::Goto(i as u16, row));
+
+            print!(" ");
+        }
+
+
+        let mid = (dimension.x as f32 * 0.5 + origin.x as f32) as u16;
+
+
+        let cursor_pos = mid - (title.len() as f32 * 0.5) as u16;
+
+        
+        print!("{}", termion::cursor::Goto(cursor_pos, row));
+
+        print!("{}", title);
+
+    }
+
 }

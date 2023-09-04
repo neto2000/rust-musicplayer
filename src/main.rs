@@ -62,6 +62,7 @@ fn main() {
 
     config.timeline(0.8);
     config.play_pause(true);
+    config.title("Paradox - Survive said the Prophet");
 
     stdout.flush().unwrap();
 
@@ -168,6 +169,8 @@ fn main() {
                         sound::add_song(&sink, song.clone());
                         
                         song_length = files::duration(&song);
+
+                        config.title(&files::title(&song));
 
                         song_start = SystemTime::now();
                     } 

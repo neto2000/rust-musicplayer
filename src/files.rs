@@ -82,4 +82,20 @@ pub fn duration(path: &str) -> u64 {
     
 }
 
+pub fn title(path: &str) -> String {
+    
+    let tag = Probe::open(Path::new(path)).expect("error").read().expect("error");
+
+    let prim_tag = match tag.primary_tag() {
+        Some(p_tag) => p_tag,
+
+        None => tag.first_tag().expect("nothiing"),
+    };
+
+    let title: &str = &prim_tag.title().expect("e");
+    let artist: &str = &prim_tag.artist().expect("e");
+
+    return String::new() + title + " - " + artist;
+}
+
 
