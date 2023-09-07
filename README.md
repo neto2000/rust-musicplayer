@@ -12,7 +12,7 @@
  - [x] implement shuffle playlist
  - [x] only display .mp3 files
  - [x] remove extension on display
- - [ ] create extra frame with play/pause, timeline, etc. (only visual)
+ - [x] create extra frame with play/pause, timeline, etc. (only visual)
  - [ ] config file and access to it
  - [ ] display song info
 
