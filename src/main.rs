@@ -36,6 +36,8 @@ fn main() {
 
     files::clear_log();
 
+    files::title("/home/neto/music/real_songs/A.mp3");
+
     // clear Screen and initaite input
     println!("{}",termion::clear::All);
 
@@ -55,9 +57,9 @@ fn main() {
 
     let mut playlists = files::list_songs("/home/neto/music/");
 
-    config.array(&playlists);
+    config.array(&playlists, "playlist");
 
-    playlists = config.highlight(0, 0, playlists);
+    playlists = config.highlight(0, 0, playlists, "playlist");
 
 
     config.timeline(0.8);
@@ -151,9 +153,9 @@ fn main() {
 
                         config.clear(display::Windows::Files);
 
-                        config.array(&playlists);
+                        config.array(&playlists, &path);
 
-                        playlists = config.highlight(0, 0, playlists);
+                        playlists = config.highlight(0, 0, playlists, &path);
 
                         row = 0;
 
@@ -164,7 +166,7 @@ fn main() {
 
                         
 
-                        let song = String::from("/home/neto/music/") + &current_playlist + "/" + &playlists[row] + ".mp3";
+                        let song = String::from("/home/neto/music/") + &current_playlist + "/" + &playlists[row];
 
                         sound::add_song(&sink, song.clone());
                         
@@ -193,9 +195,9 @@ fn main() {
                         
                         config.clear(display::Windows::Files);
 
-                        config.array(&playlists);
+                        config.array(&playlists, &path);
 
-                        playlists = config.highlight(0, 0, playlists);
+                        playlists = config.highlight(0, 0, playlists, &path);
 
                         row = 0;
 
@@ -203,11 +205,13 @@ fn main() {
                         song_secs_played = 0;
 
 
-                        let song = String::from("/home/neto/music/") + &current_playlist + "/" + &playlists[row] + ".mp3";
+                        let song = String::from("/home/neto/music/") + &current_playlist + "/" + &playlists[row];
 
                         sound::add_song(&sink, song.clone());
                         
                         song_length = files::duration(&song);
+
+                        config.title(&files::title(&song));
 
                         song_start = SystemTime::now();
 
@@ -219,9 +223,19 @@ fn main() {
                         continue;
                     }
 
+                    let path: String = String::from("/home/neto/music/") + &playlists[row];
+
                     previous_row = row;
                     row -= 1;
-                    playlists = config.highlight(row, previous_row, playlists);
+
+                    if selec_state == Selection::Playlists {
+
+                        playlists = config.highlight(row, previous_row, playlists, "playlist");
+                    }
+                    else {
+
+                        playlists = config.highlight(row, previous_row, playlists, &path);
+                    }
                 },
                 Key::Char('j') => {
                     files::log("dowdownn");
@@ -229,11 +243,19 @@ fn main() {
                         continue;
                     }
 
+                    let path: String = String::from("/home/neto/music/") + &playlists[row];
 
                     previous_row = row;
                     row += 1;
-                    playlists = config.highlight(row, previous_row, playlists);
-                },
+
+                    if selec_state == Selection::Playlists {
+
+                        playlists = config.highlight(row, previous_row, playlists, "playlist");
+                    }
+                    else {
+
+                        playlists = config.highlight(row, previous_row, playlists, &path);
+                    }                },
                 Key::Char('b') => {
                     if selec_state == Selection::Songs {
                         selec_state = Selection::Playlists;
@@ -243,9 +265,9 @@ fn main() {
 
                         config.clear(display::Windows::Files);
 
-                        config.array(&playlists);
+                        config.array(&playlists, "playlist");
 
-                        playlists = config.highlight(0, 0, playlists);
+                        playlists = config.highlight(0, 0, playlists, "playlist");
 
                         row = 0;
 
@@ -265,7 +287,9 @@ fn main() {
 
             if current_song + 1 < playlists.len() {
 
-                let path = String::from("/home/neto/music/") + &current_playlist + "/" + &playlists[current_song + 1] + ".mp3";
+                let playlist_path =String::from("/home/neto/music/") + &current_playlist; 
+
+                let path = String::from("/home/neto/music/") + &current_playlist + "/" + &playlists[current_song + 1];
 
                 if sound::update(&sink, path.clone()) == 1 {
                     current_song += 1;
@@ -280,7 +304,7 @@ fn main() {
                     previous_row = row;
                     row += 1;
 
-                    playlists = config.highlight(current_song, previous_row, playlists);
+                    playlists = config.highlight(current_song, previous_row, playlists, &playlist_path);
                 }
 
             }

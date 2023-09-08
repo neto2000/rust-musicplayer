@@ -5,6 +5,14 @@ use rand::Rng;
 use lofty::{Accessor, AudioFile, Probe, TaggedFileExt};
 use std::path::Path;
 
+
+pub struct SongInfo {
+    pub title: String,
+    pub artist: String,
+    pub year: String,
+    pub genre: String,
+}
+
 pub fn list_songs(path: &str) -> Vec<String> {
 
     let dir = fs::read_dir(path).unwrap();
@@ -27,7 +35,7 @@ pub fn list_songs(path: &str) -> Vec<String> {
         }
 
 
-        playlist.push(String::from(song_vec[0])); 
+        playlist.push(String::from(song_vec[0]) + "." + song_vec[1]); 
 
     }
 
@@ -89,13 +97,60 @@ pub fn title(path: &str) -> String {
     let prim_tag = match tag.primary_tag() {
         Some(p_tag) => p_tag,
 
-        None => tag.first_tag().expect("nothiing"),
+        None => return path.to_owned(),
     };
 
-    let title: &str = &prim_tag.title().expect("e");
-    let artist: &str = &prim_tag.artist().expect("e");
+    let title: String = match prim_tag.title() {
+        Some(t) => t.to_string(),
+        None => path.to_owned(),
+    };
 
-    return String::new() + title + " - " + artist;
+
+    let artist: String = match prim_tag.artist() {
+        Some(t) => t.to_string(),
+        None => String::new(),
+    };
+
+    return String::new() + &title + " - " + &artist;
+}
+
+pub fn song_info(path: &str) -> SongInfo {
+    let tag = Probe::open(Path::new(path)).expect("error").read().expect("error");
+
+    let prim_tag = match tag.primary_tag() {
+        Some(p_tag) => p_tag,
+
+        None => return SongInfo { title: path.to_owned(), artist: "".to_owned(), year: "".to_owned(), genre: "".to_owned() },
+    };
+
+    let title: String = match prim_tag.title() {
+        Some(t) => t.to_string(),
+        None => path.to_owned(),
+    };
+
+    //let title: String = prim_tag.title().expect("title err").to_string();
+    
+
+   // let artist: String = prim_tag.artist().expect("artist err").to_string();
+    let artist: String = match prim_tag.artist() {
+        Some(t) => t.to_string(),
+        None => String::new(),
+    };
+
+    //let year: u32 = prim_tag.year().expect("year err");
+    let year: String = match prim_tag.year() {
+        Some(t) => t. to_string(),
+        None => String::new(),
+    };
+
+    //let genre: String = prim_tag.genre().expect("genre err").to_string();
+    let genre: String = match prim_tag.genre() {
+        Some(t) => t.to_string(),
+        None => String::new(),
+    };
+
+
+    return SongInfo { title: title, artist: artist, year: year, genre: genre }
 }
 
 

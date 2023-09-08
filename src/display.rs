@@ -249,7 +249,7 @@ impl Config {
         }
     }
 
-    pub fn array(&self, array: &Vec<String>) {
+    pub fn array(&self, array: &Vec<String>, path: &str) {
 
         
         let origin: Point = self.files_start;
@@ -266,27 +266,51 @@ impl Config {
                 break;
             }
 
-            print!("{}", termion::cursor::Goto(origin.x as u16 + 3, origin.y as u16 + counter + 2));
+            if path == "playlist" {
+                
+                print!("{}", termion::cursor::Goto(origin.x as u16 + 3 , origin.y as u16 + counter + 2));
 
-            print!("{}", song);
-
+                print!("{}", song);
+            }
+            else {
+                self.write_song_info(path, song, counter);
+            }
+            
 
             counter += 1;
         }
     }
 
-    pub fn highlight(&self, index: usize, previous: usize , array: Vec<String>) -> Vec<String> {
+    pub fn highlight(&self, index: usize, previous: usize , array: Vec<String>, path: &str) -> Vec<String> {
         files::log(&array[index]);
 
 
-        print!("{}", termion::cursor::Goto(3, previous as u16 + 2));
+        
+        if path == "playlist" {
 
-        print!("{}", array[previous]);
+            print!("{}", termion::cursor::Goto(3, previous as u16 + 2));
+            
+            print!("{}", array[previous]);
+        }
+        else {
+
+            self.write_song_info(path, &array[previous], previous as u16);
+        }
+
 
         
         print!("{}{}", termion::cursor::Goto(3, index as u16 + 2), termion::color::Bg(termion::color::LightBlack));
+        
 
-        print!("{}", array[index]);
+        if path == "playlist" {
+            
+            print!("{}", array[index]);
+
+        }
+        else {
+            self.write_song_info(path, &array[index], index as u16)
+        }
+
 
         print!("{}", termion::color::Bg(termion::color::Reset));
 
@@ -295,6 +319,60 @@ impl Config {
         
         return array;
     }
+
+    fn write_song_info(&self, path: &str, song: &str, counter: u16) {
+       
+        let origin: Point = self.files_start;
+
+        let song_file: String = path.to_owned() + "/" + song;
+
+        let song_info: files::SongInfo = files::song_info(&song_file); 
+
+        let mut info_position: u16 = 0;
+
+    
+        // Title
+
+        print!("{}", termion::cursor::Goto(origin.x as u16 + 3 + info_position, origin.y as u16 + counter + 2));
+        
+        if song_info.title == "" {
+            print!("{}", song);
+        }
+        else {
+
+            print!("{}", &song_info.title);
+        }
+        
+        info_position += (self.files_width.x as f32 * 0.3) as u16;
+        
+
+        print!("{}", termion::color::Bg(termion::color::Reset));
+
+        // Artist
+        
+        print!("{}", termion::cursor::Goto(origin.x as u16 + 3 + info_position, origin.y as u16 + counter + 2));
+
+        print!("{}", &song_info.artist);
+
+        info_position += (self.files_width.x as f32 * 0.2) as u16;
+
+
+        // Genre
+
+        print!("{}", termion::cursor::Goto(origin.x as u16 + 3 + info_position, origin.y as u16 + counter + 2));
+
+        print!("{}", &song_info.genre);
+    
+        info_position += (self.files_width.x as f32 * 0.2) as u16;
+
+
+        // Year
+
+        print!("{}", termion::cursor::Goto(origin.x as u16 + 3 + info_position, origin.y as u16 + counter + 2));
+
+        print!("{}", &song_info.year);
+
+    } 
 
     pub fn timeline(&self, percantage: f32) {
         let origin: Point = self.control_start;
