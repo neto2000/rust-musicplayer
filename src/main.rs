@@ -305,6 +305,8 @@ fn main() {
                     row += 1;
 
                     playlists = config.highlight(current_song, previous_row, playlists, &playlist_path);
+
+                    config.title(&playlists[current_song])
                 }
 
             }
