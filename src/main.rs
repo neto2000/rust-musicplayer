@@ -50,7 +50,7 @@ fn main() {
 
 
 
-    let config = display::Config::new(display::Ratio{y: 0.6, x: 1.0}, display::Ratio{y: 0.4, x: 1.0}, display::Point{x:0,y:0}, display::Point{x:0,y:1}); 
+    let mut config = display::Config::new(display::Ratio{y: 0.6, x: 1.0}, display::Ratio{y: 0.4, x: 1.0}, display::Point{x:0,y:0}, display::Point{x:0,y:1}); 
 
     config.frame();
 
@@ -79,8 +79,8 @@ fn main() {
 
     let mut current_song = 0;
 
-    let mut row = 0;
-    let mut previous_row = 0;
+    let mut selected = 0;
+    let mut previous_selected = 0;
 
     let mut skip_once = true;
 
@@ -136,7 +136,7 @@ fn main() {
                     if selec_state == Selection::Songs {
                         files::log("play song");
 
-                        sound::add_song(&sink, String::from("/home/neto/music/") + &current_playlist + "/" + &playlists[row] + ".mp3"); 
+                        sound::add_song(&sink, String::from("/home/neto/music/") + &current_playlist + "/" + &playlists[selected] + ".mp3"); 
                     }
 
 
@@ -145,9 +145,9 @@ fn main() {
                         selec_state = Selection::Songs;
                         
 
-                        current_playlist = playlists[row].to_string();
+                        current_playlist = playlists[selected].to_string();
 
-                        let path: String = String::from("/home/neto/music/") + &playlists[row];
+                        let path: String = String::from("/home/neto/music/") + &playlists[selected];
 
                         playlists = files::list_songs(&path);
 
@@ -157,7 +157,11 @@ fn main() {
 
                         playlists = config.highlight(0, 0, playlists, &path);
 
-                        row = 0;
+                        selected = 0;
+
+                        config.set_top_index(0);
+
+
 
                         song_secs_played = 0;
                         
@@ -166,7 +170,7 @@ fn main() {
 
                         
 
-                        let song = String::from("/home/neto/music/") + &current_playlist + "/" + &playlists[row];
+                        let song = String::from("/home/neto/music/") + &current_playlist + "/" + &playlists[selected];
 
                         sound::add_song(&sink, song.clone());
                         
@@ -184,9 +188,9 @@ fn main() {
 
                         selec_state = Selection::Songs;
                         
-                        current_playlist = playlists[row].to_string();
+                        current_playlist = playlists[selected].to_string();
 
-                        let path: String = String::from("/home/neto/music/") + &playlists[row];
+                        let path: String = String::from("/home/neto/music/") + &playlists[selected];
 
                         playlists = files::list_songs(&path);
                         
@@ -199,13 +203,16 @@ fn main() {
 
                         playlists = config.highlight(0, 0, playlists, &path);
 
-                        row = 0;
+                        selected = 0;
+
+                        config.set_top_index(0);
+
 
 
                         song_secs_played = 0;
 
 
-                        let song = String::from("/home/neto/music/") + &current_playlist + "/" + &playlists[row];
+                        let song = String::from("/home/neto/music/") + &current_playlist + "/" + &playlists[selected];
 
                         sound::add_song(&sink, song.clone());
                         
@@ -219,43 +226,63 @@ fn main() {
                 },
                 Key::Char('k') => {
                     files::log("up");
-                    if row <= 0 {
+                    if selected <= 0 {
                         continue;
                     }
 
-                    let path: String = String::from("/home/neto/music/") + &playlists[row];
+                    let path: String = String::from("/home/neto/music/") + &current_playlist;
 
-                    previous_row = row;
-                    row -= 1;
+                    previous_selected = selected;
+                    selected -= 1;
+                    
+
+                    if selected < config.top_index {
+
+                        config.set_top_index(config.top_index - 1);
+
+                        config.array(&playlists, &path);
+
+                    }
+
 
                     if selec_state == Selection::Playlists {
 
-                        playlists = config.highlight(row, previous_row, playlists, "playlist");
+                        playlists = config.highlight(selected, previous_selected, playlists, "playlist");
                     }
                     else {
 
-                        playlists = config.highlight(row, previous_row, playlists, &path);
+                        playlists = config.highlight(selected, previous_selected, playlists, &path);
                     }
                 },
                 Key::Char('j') => {
                     files::log("dowdownn");
-                    if row >= playlists.len() - 1 {
+                    if selected >= playlists.len() - 1 {
                         continue;
                     }
 
-                    let path: String = String::from("/home/neto/music/") + &playlists[row];
+                    let path: String = String::from("/home/neto/music/") + &current_playlist;
 
-                    previous_row = row;
-                    row += 1;
+                    previous_selected = selected;
+                    selected += 1;
+
+                    if selected - config.top_index > config.files_width.y {
+
+                        config.set_top_index(config.top_index + 1);
+
+                        config.array(&playlists, &path);
+
+                    }
 
                     if selec_state == Selection::Playlists {
 
-                        playlists = config.highlight(row, previous_row, playlists, "playlist");
+                        playlists = config.highlight(selected, previous_selected, playlists, "playlist");
                     }
                     else {
 
-                        playlists = config.highlight(row, previous_row, playlists, &path);
-                    }                },
+
+                        playlists = config.highlight(selected, previous_selected, playlists, &path);
+                    }                
+                },
                 Key::Char('b') => {
                     if selec_state == Selection::Songs {
                         selec_state = Selection::Playlists;
@@ -269,7 +296,9 @@ fn main() {
 
                         playlists = config.highlight(0, 0, playlists, "playlist");
 
-                        row = 0;
+                        selected = 0;
+
+                        config.set_top_index(0);
 
                     }
                 },
@@ -301,12 +330,12 @@ fn main() {
                     song_start = SystemTime::now(); 
 
 
-                    previous_row = row;
-                    row += 1;
+                    previous_selected = selected;
+                    selected = current_song;
 
-                    playlists = config.highlight(current_song, previous_row, playlists, &playlist_path);
+                    playlists = config.highlight(current_song, previous_selected, playlists, &playlist_path);
 
-                    config.title(&playlists[current_song])
+                    config.title(&files::title(&path));
                 }
 
             }

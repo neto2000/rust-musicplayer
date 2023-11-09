@@ -26,13 +26,15 @@ pub struct Config {
     files_pos: Point,
     control_pos: Point,
 
-    files_width: Point,
+    pub files_width: Point,
     control_width: Point,
 
     files_start: Point,
     control_start: Point,
 
     term_size: Point,
+
+    pub top_index: usize,
 }
 
 impl Config {
@@ -74,8 +76,15 @@ impl Config {
             files_width: files_width,
             files_start: files_start,
             control_width: control_width,
-            control_start: control_start
+            control_start: control_start,
+            top_index: 0,
         }
+    }
+
+    pub fn set_top_index(&mut self, index: usize) {
+
+        self.top_index = index;
+
     }
     
 }
@@ -254,30 +263,30 @@ impl Config {
         
         let origin: Point = self.files_start;
 
-        let (columns, rows) = termion::terminal_size().unwrap();
+        let (_columns, rows) = termion::terminal_size().unwrap();
 
-        let mut counter = 0;
+        let mut current_row: u16 = 0;
 
 
-        for song in array {
+        for i in self.top_index..array.len() {
             
 
-            if counter > rows {
+            if current_row > self.files_width.y as u16 {
                 break;
             }
 
             if path == "playlist" {
                 
-                print!("{}", termion::cursor::Goto(origin.x as u16 + 3 , origin.y as u16 + counter + 2));
+                print!("{}", termion::cursor::Goto(origin.x as u16 + 3 , origin.y as u16 + current_row + 2));
 
-                print!("{}", song);
+                print!("{}", array[i]);
             }
             else {
-                self.write_song_info(path, song, counter);
+                self.write_song_info(path, &array[i], current_row);
             }
             
 
-            counter += 1;
+            current_row += 1;
         }
     }
 
@@ -288,18 +297,18 @@ impl Config {
         
         if path == "playlist" {
 
-            print!("{}", termion::cursor::Goto(3, previous as u16 + 2));
+            print!("{}", termion::cursor::Goto(3, previous as u16 - self.top_index as u16 + 2));
             
             print!("{}", array[previous]);
         }
         else {
 
-            self.write_song_info(path, &array[previous], previous as u16);
+            self.write_song_info(path, &array[previous], previous as u16 - self.top_index as u16);
         }
 
 
         
-        print!("{}{}", termion::cursor::Goto(3, index as u16 + 2), termion::color::Bg(termion::color::LightBlack));
+        print!("{}{}", termion::cursor::Goto(3, index as u16 - self.top_index as u16 + 2), termion::color::Bg(termion::color::LightBlack));
         
 
         if path == "playlist" {
@@ -308,7 +317,7 @@ impl Config {
 
         }
         else {
-            self.write_song_info(path, &array[index], index as u16)
+            self.write_song_info(path, &array[index], index as u16 - self.top_index as u16)
         }
 
 
