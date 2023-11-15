@@ -16,7 +16,7 @@
  - [ ] config file and access to it
  - [x] display song info
 
- - [ ] select song and play it with "p"
+ - [x] select song and play it with "p"
 
 
  - [ ] **Audiogram**
