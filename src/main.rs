@@ -127,6 +127,7 @@ fn main() {
                     if skip_once {
                         sink.stop();
 
+                        files::log("skip");
 
                         skip_once = false;
                     }
@@ -134,9 +135,41 @@ fn main() {
                 },
                 Key::Char('p') => {
                     if selec_state == Selection::Songs {
+                   
+
+                        let path: String = String::from("/home/neto/music/") + &current_playlist + "/" + &playlists[selected];
+
+
+                        if skip_once {
+                            sink.stop();
+
+
+                            skip_once = false;
+                        }
+
+
+                        sound::add_song(&sink, String::from("/home/neto/music/") + &current_playlist + "/" + &playlists[selected]); 
+                        
+                        song_secs_played = 0;
+                       
+                        song_length = files::duration(&path);
+
+                        song_start = SystemTime::now();
+
+                        current_song = selected;
+
+
+                        previous_selected = selected;
+                        selected = current_song;
+
+
+                        config.title(&files::title(&path));
+
                         files::log("play song");
 
-                        sound::add_song(&sink, String::from("/home/neto/music/") + &current_playlist + "/" + &playlists[selected] + ".mp3"); 
+
+                        skip_once = true;
+
                     }
 
 
@@ -336,6 +369,8 @@ fn main() {
                     playlists = config.highlight(current_song, previous_selected, playlists, &playlist_path);
 
                     config.title(&files::title(&path));
+
+                    skip_once = true;
                 }
 
             }
