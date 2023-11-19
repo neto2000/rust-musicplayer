@@ -2,3 +2,39 @@
 209
 209
 real_songs
+pressed key
+up
+dowdownn
+Rock_Metal
+I Was Made For Lovin' You (Kiss).mp3
+/home/neto/music/Rock_Metal/I Was Made For Lovin' You (Kiss).mp3.mp3
+pause
+pause
+Eye Of The Tiger (Survivor).mp3
+The Chain (Fleetwood Mac).mp3
+dowdownn
+The Unforgiven (Metallica).mp3
+dowdownn
+Still Breathing (Green Day).mp3
+dowdownn
+Fade To Black (Metallica).mp3
+dowdownn
+Fear Of The Dark (Iron Maiden).mp3
+dowdownn
+Stairway to Heaven (Led Zeppelin).mp3
+dowdownn
+Nothing else Matters (Metallica).mp3
+dowdownn
+Paradox (Survive Said The Prophet).mp3
+dowdownn
+Call Me Little Sunshine (Ghost).mp3
+dowdownn
+Junge (Die Ärzte).mp3
+dowdownn
+Snow (Red Hot Chili Peppers).mp3
+up
+Junge (Die Ärzte).mp3
+play song
+pause
+pause
+Snow (Red Hot Chili Peppers).mp3

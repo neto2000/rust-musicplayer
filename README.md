@@ -20,6 +20,7 @@
 
  ### Bugs
   - [ ] playlist goes out of bounds
+  - [ ] very high cpu usage while playing song
 
  ### UI
   - [ ] selected line: highlight whole line
