@@ -13,10 +13,21 @@
  - [x] only display .mp3 files
  - [x] remove extension on display
  - [x] create extra frame with play/pause, timeline, etc. (only visual)
- - [ ] config file and access to it
  - [x] display song info
 
  - [x] select song and play it with "p"
 
 
+ ### Bugs
+  - [ ] playlist goes out of bounds
+
+ ### UI
+  - [ ] selected line: highlight whole line
+  - [ ] alternating highlight colors for whole playlist
+
+
+ - [ ] **Config File**
+
+
  - [ ] **Audiogram**
+  - [ ] ? audiogram maybe above timeline ?
