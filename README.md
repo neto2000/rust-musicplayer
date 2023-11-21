@@ -17,6 +17,8 @@
 
  - [x] select song and play it with "p"
 
+ - [ ] switch volume with keys
+
 
  ### Bugs
   - [x] playlist goes out of bounds
@@ -25,6 +27,7 @@
  ### UI
   - [ ] selected line: highlight whole line
   - [ ] alternating highlight colors for whole playlist
+  - [ ] list with available keymaps
 
 
  - [ ] **Config File**
