@@ -19,7 +19,7 @@
 
 
  ### Bugs
-  - [ ] playlist goes out of bounds
+  - [x] playlist goes out of bounds
   - [ ] very high cpu usage while playing song
 
  ### UI
@@ -30,5 +30,5 @@
  - [ ] **Config File**
 
 
- - [ ] **Audiogram**
+ ### Audiogram
   - [ ] ? audiogram maybe above timeline ?

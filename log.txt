@@ -2,15 +2,53 @@
 209
 209
 real_songs
-pressed key
-up
 dowdownn
 Rock_Metal
 I Was Made For Lovin' You (Kiss).mp3
 /home/neto/music/Rock_Metal/I Was Made For Lovin' You (Kiss).mp3.mp3
-pause
-pause
+dowdownn
 Eye Of The Tiger (Survivor).mp3
+dowdownn
+The Chain (Fleetwood Mac).mp3
+dowdownn
+The Unforgiven (Metallica).mp3
+dowdownn
+Still Breathing (Green Day).mp3
+up
+The Unforgiven (Metallica).mp3
+up
+The Chain (Fleetwood Mac).mp3
+up
+Eye Of The Tiger (Survivor).mp3
+up
+I Was Made For Lovin' You (Kiss).mp3
+up
+up
+up
+up
+dowdownn
+Eye Of The Tiger (Survivor).mp3
+dowdownn
+The Chain (Fleetwood Mac).mp3
+dowdownn
+The Unforgiven (Metallica).mp3
+dowdownn
+Still Breathing (Green Day).mp3
+up
+The Unforgiven (Metallica).mp3
+up
+The Chain (Fleetwood Mac).mp3
+up
+Eye Of The Tiger (Survivor).mp3
+up
+I Was Made For Lovin' You (Kiss).mp3
+up
+up
+up
+up
+dowdownn
+Eye Of The Tiger (Survivor).mp3
+dowdownn
 The Chain (Fleetwood Mac).mp3
 dowdownn
 The Unforgiven (Metallica).mp3
@@ -32,9 +70,174 @@ dowdownn
 Junge (Die Ärzte).mp3
 dowdownn
 Snow (Red Hot Chili Peppers).mp3
+dowdownn
+In The End (Linkin Park).mp3
+up
+Snow (Red Hot Chili Peppers).mp3
+up
+Junge (Die Ärzte).mp3
+up
+Call Me Little Sunshine (Ghost).mp3
+up
+Paradox (Survive Said The Prophet).mp3
+up
+Nothing else Matters (Metallica).mp3
+up
+Stairway to Heaven (Led Zeppelin).mp3
+up
+Fear Of The Dark (Iron Maiden).mp3
+up
+Fade To Black (Metallica).mp3
+up
+Still Breathing (Green Day).mp3
+up
+The Unforgiven (Metallica).mp3
+up
+The Chain (Fleetwood Mac).mp3
+up
+Eye Of The Tiger (Survivor).mp3
+up
+I Was Made For Lovin' You (Kiss).mp3
+up
+up
+up
+up
+up
+up
+up
+up
+up
+dowdownn
+Eye Of The Tiger (Survivor).mp3
+dowdownn
+The Chain (Fleetwood Mac).mp3
+dowdownn
+The Unforgiven (Metallica).mp3
+dowdownn
+Still Breathing (Green Day).mp3
+dowdownn
+Fade To Black (Metallica).mp3
+dowdownn
+Fear Of The Dark (Iron Maiden).mp3
+dowdownn
+Stairway to Heaven (Led Zeppelin).mp3
+dowdownn
+Nothing else Matters (Metallica).mp3
+dowdownn
+Paradox (Survive Said The Prophet).mp3
+dowdownn
+Call Me Little Sunshine (Ghost).mp3
+dowdownn
+Junge (Die Ärzte).mp3
+dowdownn
+Snow (Red Hot Chili Peppers).mp3
+dowdownn
+In The End (Linkin Park).mp3
+dowdownn
+Burn It Down (Linkin Park).mp3
+dowdownn
+Mukanjyo (Survive Said The Prophet).mp3
+dowdownn
+Dance Macabre (Ghost).mp3
+pause
+pause
+play song
+up
+Mukanjyo (Survive Said The Prophet).mp3
+up
+Burn It Down (Linkin Park).mp3
+up
+In The End (Linkin Park).mp3
+up
+Snow (Red Hot Chili Peppers).mp3
 up
 Junge (Die Ärzte).mp3
 play song
-pause
-pause
+dowdownn
 Snow (Red Hot Chili Peppers).mp3
+dowdownn
+In The End (Linkin Park).mp3
+dowdownn
+Burn It Down (Linkin Park).mp3
+dowdownn
+Mukanjyo (Survive Said The Prophet).mp3
+dowdownn
+Dance Macabre (Ghost).mp3
+dowdownn
+Everlong (Foo Fighters).mp3
+dowdownn
+Sweet Child O' Mine Cover (First to Eleven).mp3
+dowdownn
+Paradise City (Guns N' Roses).mp3
+dowdownn
+Reckless Paradise (Billy Talent).mp3
+dowdownn
+Through the Fire and Flames (DragonForce).mp3
+dowdownn
+The Call Of Ktulu (Metallica)).mp3
+dowdownn
+Mary On A Cross (Ghost).mp3
+dowdownn
+What I've Done (Linkin Park).mp3
+dowdownn
+Holiday (Green Day).mp3
+dowdownn
+Black Summer (Red Hot Chilli Peppers).mp3
+dowdownn
+Come as You Are (Nirvana).mp3
+dowdownn
+Enter Sandman (Metallica).mp3
+dowdownn
+Califonication (Red Hot Chilli Peppers).mp3
+dowdownn
+21 Guns (Green Day).mp3
+dowdownn
+Lost (Linkin Park).mp3
+dowdownn
+Square Hammer (Ghost).mp3
+dowdownn
+Hotel California (Eagles).mp3
+dowdownn
+Spillways (Ghost).mp3
+dowdownn
+When I (Survive Said The Prophet).mp3
+dowdownn
+For Whom the Bell Tolls (Metallica).mp3
+dowdownn
+Breaking the Habit (Linkin Park).mp3
+dowdownn
+Wake Me up When September Ends (Green Day).mp3
+dowdownn
+Aint Talkin' Bout Love (Van Halen).mp3
+dowdownn
+Master of Puppets (Metallica).mp3
+dowdownn
+Mary (Survive Said The Prophet).mp3
+dowdownn
+Smells Like Teen Spirit (Nirvana).mp3
+dowdownn
+Paint It, Black (The Rolling Stones).mp3
+dowdownn
+Orion (Metallica).mp3
+dowdownn
+Castle of Glass (Linkin Park).mp3
+dowdownn
+The Trooper (Iron Maiden).mp3
+up
+Castle of Glass (Linkin Park).mp3
+up
+Orion (Metallica).mp3
+dowdownn
+Castle of Glass (Linkin Park).mp3
+up
+Orion (Metallica).mp3
+up
+Paint It, Black (The Rolling Stones).mp3
+up
+Smells Like Teen Spirit (Nirvana).mp3
+up
+Mary (Survive Said The Prophet).mp3
+play song
+skip
+Smells Like Teen Spirit (Nirvana).mp3
+pause

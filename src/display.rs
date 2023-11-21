@@ -249,7 +249,7 @@ impl Config {
 
         }
 
-        for i in origin.y + 2..origin.y + dimension.y - 1 {
+        for i in origin.y + 2..origin.y + dimension.y {
             print!("{}", termion::cursor::Goto(3, i as u16));
             
             for _j in origin.x + 2..origin.x + dimension.x - 1 {
@@ -271,7 +271,7 @@ impl Config {
         for i in self.top_index..array.len() {
             
 
-            if current_row > self.files_width.y as u16 {
+            if current_row > (self.files_width.y - 3) as u16 {
                 break;
             }
 

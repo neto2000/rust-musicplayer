@@ -273,6 +273,8 @@ fn main() {
 
                         config.set_top_index(config.top_index - 1);
 
+                        config.clear(display::Windows::Files);
+
                         config.array(&playlists, &path);
 
                     }
@@ -298,9 +300,11 @@ fn main() {
                     previous_selected = selected;
                     selected += 1;
 
-                    if selected - config.top_index > config.files_width.y {
+                    if selected - (config.top_index) > config.files_width.y - 3 {
 
                         config.set_top_index(config.top_index + 1);
+
+                        config.clear(display::Windows::Files);
 
                         config.array(&playlists, &path);
 
