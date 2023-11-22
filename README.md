@@ -22,12 +22,14 @@
 
  ### Bugs
   - [x] playlist goes out of bounds
-  - [ ] very high cpu usage while playing song
+  - [ ] very high cpu usage (test on pi)
 
  ### UI
-  - [ ] selected line: highlight whole line
+  - [x] selected line: highlight whole line
   - [ ] alternating highlight colors for whole playlist
   - [ ] list with available keymaps
+  - [ ] transparent highlight
+  - [ ] custom colors in config (for highlight)
 
 
  - [ ] **Config File**

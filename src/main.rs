@@ -122,6 +122,9 @@ fn main() {
 
                         config.play_pause(true);
                     }
+
+
+                    stdout.flush().unwrap();
                 },
                 Key::Char('s') => {
                     if skip_once {
@@ -212,7 +215,10 @@ fn main() {
                         config.title(&files::title(&song));
 
                         song_start = SystemTime::now();
-                    } 
+                    }
+
+
+                    stdout.flush().unwrap();
                     
                 },
                 Key::Char('r') => {
@@ -255,6 +261,9 @@ fn main() {
 
                         song_start = SystemTime::now();
 
+
+                        stdout.flush().unwrap();
+
                     } 
                 },
                 Key::Char('k') => {
@@ -288,6 +297,8 @@ fn main() {
 
                         playlists = config.highlight(selected, previous_selected, playlists, &path);
                     }
+
+                    stdout.flush().unwrap();
                 },
                 Key::Char('j') => {
                     files::log("dowdownn");
@@ -318,7 +329,10 @@ fn main() {
 
 
                         playlists = config.highlight(selected, previous_selected, playlists, &path);
-                    }                
+                    }
+
+
+                    stdout.flush().unwrap();
                 },
                 Key::Char('b') => {
                     if selec_state == Selection::Songs {
@@ -336,6 +350,9 @@ fn main() {
                         selected = 0;
 
                         config.set_top_index(0);
+
+
+                        stdout.flush().unwrap();
 
                     }
                 },
@@ -375,6 +392,9 @@ fn main() {
                     config.title(&files::title(&path));
 
                     skip_once = true;
+
+
+                    stdout.flush().unwrap();
                 }
 
             }
@@ -384,11 +404,13 @@ fn main() {
             if time < song_length && !is_paused{
                 
                 config.timeline(time as f32 / song_length as f32);
+
+
+                stdout.flush().unwrap();
             }
 
         }
 
-        stdout.flush().unwrap();
     }
 
 

@@ -293,6 +293,14 @@ impl Config {
     pub fn highlight(&self, index: usize, previous: usize , array: Vec<String>, path: &str) -> Vec<String> {
         files::log(&array[index]);
 
+        // de-highlight whole line 
+        print!("{}", termion::cursor::Goto(3, previous as u16 - self.top_index as u16 + 2));
+
+        for _ in self.files_start.x..self.files_start.x + self.files_width.x - 4 {
+
+            print!(" ");
+
+        }
 
         
         if path == "playlist" {
@@ -307,9 +315,16 @@ impl Config {
         }
 
 
-        
+        // highlight whole line 
         print!("{}{}", termion::cursor::Goto(3, index as u16 - self.top_index as u16 + 2), termion::color::Bg(termion::color::LightBlack));
+
+        for _ in self.files_start.x..self.files_start.x + self.files_width.x - 4 {
+
+            print!(" ");
+
+        }
         
+        print!("{}", termion::cursor::Goto(3, index as u16 - self.top_index as u16 + 2));
 
         if path == "playlist" {
             
@@ -355,7 +370,7 @@ impl Config {
         info_position += (self.files_width.x as f32 * 0.3) as u16;
         
 
-        print!("{}", termion::color::Bg(termion::color::Reset));
+        //print!("{}", termion::color::Bg(termion::color::Reset));
 
         // Artist
         
