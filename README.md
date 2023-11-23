@@ -17,7 +17,7 @@
 
  - [x] select song and play it with "p"
 
- - [ ] switch volume with keys
+ - [x] switch volume with keys (h/l)
 
 
  ### Bugs

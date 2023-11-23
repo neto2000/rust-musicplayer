@@ -4,5 +4,4 @@
 real_songs
 dowdownn
 Rock_Metal
-I Was Made For Lovin' You (Kiss).mp3
-/home/neto/music/Rock_Metal/I Was Made For Lovin' You (Kiss).mp3.mp3
+The Call Of Ktulu (Metallica)).mp3

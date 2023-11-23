@@ -356,7 +356,16 @@ fn main() {
 
                     }
                 },
-                
+                Key::Char('h') => {
+
+                    sink.set_volume(sink.volume() - 0.1)
+
+                },
+                Key::Char('l') => {
+
+                    sink.set_volume(sink.volume() + 0.1)
+
+                },
                 _ => {files::log("pressed key");},
                 
             }

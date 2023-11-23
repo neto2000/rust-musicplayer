@@ -268,8 +268,13 @@ impl Config {
         let mut current_row: u16 = 0;
 
 
+
+
         for i in self.top_index..array.len() {
             
+            
+
+
 
             if current_row > (self.files_width.y - 3) as u16 {
                 break;
@@ -370,7 +375,6 @@ impl Config {
         info_position += (self.files_width.x as f32 * 0.3) as u16;
         
 
-        //print!("{}", termion::color::Bg(termion::color::Reset));
 
         // Artist
         
