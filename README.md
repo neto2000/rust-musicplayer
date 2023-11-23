@@ -32,7 +32,12 @@
   - [ ] custom colors in config (for highlight)
 
 
- - [ ] **Config File**
+ ### Config File
+  - [ ] box layout
+  - [ ] box dimensions
+  - [ ] box colors
+  - [ ] select colors
+  - [ ] keymaps
 
 
  ### Audiogram
