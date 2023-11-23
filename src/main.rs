@@ -358,12 +358,13 @@ fn main() {
                 },
                 Key::Char('h') => {
 
-                    sink.set_volume(sink.volume() - 0.1)
+                    sound::increase_volume(&sink);
 
                 },
                 Key::Char('l') => {
 
-                    sink.set_volume(sink.volume() + 0.1)
+                    
+                    sound::decrease_volume(&sink);
 
                 },
                 _ => {files::log("pressed key");},
