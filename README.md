@@ -23,6 +23,7 @@
  ### Bugs
   - [x] playlist goes out of bounds
   - [ ] very high cpu usage (test on pi)
+  - [ ] can't install on pi
 
  ### UI
   - [x] selected line: highlight whole line
